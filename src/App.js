@@ -1,26 +1,131 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from 'react';
+import {NavBar} from './components/NavBar'
+import {Content} from './components/Content'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const array = [
+        {
+            id: 1,
+            parent: null,
+            name: 'Россия',
+            details: null,
+            counter: null
+        },
+        {
+            id: 2,
+            parent: 1,
+            name: 'Москва',
+            details: 'Москва — столица России, город федерального значения, административный центр Центрального федерального округа и центр Московской области, в состав которой не входит.',
+            counter: 11514330
+        },
+        {
+            id: 3,
+            parent: 1,
+            name: 'Санкт-Петербург',
+            details: 'Санкт-Петербу́рг (с 18 [31] августа 1914 года до 26 января 1924[7] года — Петрогра́д, с 26 января 1924 года до 6 сентября 1991 года[3] — Ленингра́д, в разговорной речи — Пи́тер, сокр. — СПб) — второй по численности населения город России',
+            counter: 4848742
+        },
+        {
+            id: 4,
+            parent: 1,
+            name: 'Новосибирск',
+            details: 'Новосиби́рск (произношение (инф.); до 1926 года — Ново-Николаевск) — третий по численности населения город России[8].',
+            counter: 1498921
+        },
+        {
+            id: 5,
+            parent: 1,
+            name: 'Екатеринбург',
+            details: 'Екатеринбу́рг (с 1924 по 1991 год — Свердло́вск) — город в России, административный центр Уральского федерального округа и Свердловской области[5][6].',
+            counter: 1377738
+        },
+        {
+            id: 6,
+            parent: 1,
+            name: 'Нижний Новгород',
+            details: 'Ни́жний Но́вгород[10] (в разговорной речи часто — Нижний[11], c XIII по XVII век — Но́вгород Низо́вской земли́, с 1932 по 1990 год — Го́рький) — город в центральной России, административный центр Приволжского федерального округа и Нижегородской области.',
+            counter: 1250615
+        },
+        {
+            id: 7,
+            parent: null,
+            name: 'США',
+            details: null,
+            counter: null
+        },
+        {
+            id: 8,
+            parent: 7,
+            name: 'Нью-Йорк',
+            details: 'Нью-Йо́рк (англ. New York City, МФА: New York Информация о файле слушать, [nuː ˈjɔɹk ˈsɪti] или [njuː ˈjɔːk ˈsɪti]) — крупнейший город США[2][3], входящий в одну из крупнейших агломераций мира[4][5][6].',
+            counter: 8336817
+        },
+        {
+            id: 9,
+            parent: 7,
+            name: 'Лос-Анджелес',
+            details: 'Лос-А́нджелес (англ. Los Angeles, МФА (англ.): [lɒs ˈændʒələs], исп. Los Ángeles, МФА (исп.): [los ˈaŋxeles]; устар. Лос-Анжелос, Лос-Анжелес, Лос-Анхелес, также известен как L.A. и City of Angels — Город Ангелов) — город в США на юге штата Калифорния, находящийся на берегу Тихого океана.',
+            counter: 3979576
+        },
+        {
+            id: 10,
+            parent: 7,
+            name: 'Чикаго',
+            details: 'Чика́го (англ. Chicago, МФА: [ʃɪˈkɑːgoʊ]или [ʃɪˈkɔːgoʊ]) — третий по числу жителей (после Нью-Йорка и Лос-Анджелеса) город США, второй по значимости финансовый центр страны (после Нью-Йорка) и крупнейший транспортный узел Северной Америки.',
+            counter: 2693976
+        },
+        {
+            id: 11,
+            parent: null,
+            name: 'Китай',
+            details: null,
+            counter: null
+        },
+        {
+            id: 12,
+            parent: 11,
+            name: 'Шанхай',
+            details: 'Шанха́й (кит. 上海, пиньинь Shànghǎi; у 上海 [zãhe], Zånhae) — расположенный в дельте реки Янцзы на востоке Китая один из четырёх городов центрального подчинения КНР, важный культурный центр страны, а также крупнейший в мире морской порт[2].',
+            counter: 9495701
+        },
+        {
+            id: 13,
+            parent: 11,
+            name: 'Пекин',
+            details: 'Пеки́н (кит. 北京, пиньинь Běijīng, палл. Бэйцзин, буквально: «Северная столица») — столица и один из городов центрального подчинения Китайской Народной Республики.',
+            counter: 7296962
+        },
+        {
+            id: 14,
+            parent:117,
+            name: 'Чэнду',
+            details: 'Чэнду́ (кит. упр. 成都, пиньинь Chéngdū) — город субпровинциального значения в юго-западном Китае, в долине реки Миньцзян, место пребывания властей провинции Сычуань.',
+            counter: 7123000
+        },
+    ]
+
+    const countries = array.filter(i => i.parent === null)
+
+    const initialCities = array.filter(i => i.parent !== null)
+
+    let [cities, setCities] = useState(initialCities)
+
+    const handleClick = (id) => {
+        if(id === 0){
+            setCities(initialCities)
+        } else {
+            setCities(array.filter(i => i.parent === id))
+        }
+    }
+
+    return (
+        <div className="App">
+          <div className="container">
+              <NavBar countries = {countries} handleClick = {handleClick}/>
+              <Content cities = {cities}/>
+          </div>
+        </div>
+    )
 }
 
 export default App;
